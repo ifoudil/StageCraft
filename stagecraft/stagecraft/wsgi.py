@@ -1,5 +1,5 @@
 """
-WSGI config for starcraft project.
+WSGI config for stagecraft project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'starcraft.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stagecraft.settings')
 
 application = get_wsgi_application()

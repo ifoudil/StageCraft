@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ApplistarcraftConfig(AppConfig):
+class ApplistagecraftConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'applistarcraft'
+    name = 'applistagecraft'
