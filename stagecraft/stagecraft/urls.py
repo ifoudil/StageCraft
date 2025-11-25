@@ -21,4 +21,6 @@ from applistagecraft import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', views.test),
+    path('offres/', views.offres),
+    path('offres/add', views.formulaireCreationOffre),
 ]

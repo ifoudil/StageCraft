@@ -1,0 +1,50 @@
+{% extends 'applistagecraft/base.html' %}
+
+{% block title %}
+Les Offres
+{% endblock %}
+
+{% block main %}
+    <h2 class="text-center mt-1 fw-bold text-uppercase">Voici les {{offres|length}} offres que nous vous proposons</h2>
+    <table class="table table-bordered w-auto ms-5 mt-5">
+        <thead class="table-danger">
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Organisme</th>
+                <th scope="col">Nom du contact</th>
+                <th scope="col">Prénom du contact</th>
+                <th scope="col">Mail du contact</th>
+                <th scope="col">Intitulé de l'offre</th>
+                <th scope="col">Détails de l'offre</th>
+                <th scope="col">EtatOffre</th>
+                <th scope="col">DureeOffre</th>
+                <th scope="col">AdresseOffre</th>
+                <th scope="col">VilleOffre</th>
+                <th scope="col">CodePostalOffre</th>
+                <th scope="col">RegionOffre</th>
+                <th scope="col">DescriptionOrganisme</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            {% for offr in offres %}
+            <tr>
+                <th scope="row">{{offr.IdOffre}}</th>
+                <td>{{offr.OrganismeOffre}}</td>
+                <td>{{offr.NomContact}}</td>
+                <td>{{offr.PrenomContact}}</td>
+                <td>{{offr.MailContact}}</td>
+                <td>{{offr.IntituleOffre}}</td>
+                <td>{{offr.DetailsOffre}}</td>
+                <td>{{offr.DureeOffre}}</td>
+                <td>{{offr.DateDebutOffre}}</td>
+                <td>{{offr.AdresseOffre}}</td>
+                <td>{{offr.VilleOffre}}</td>
+                <td>{{offr.CodePostalOffre}}</td>
+                <td>{{offr.RegionOffre}}</td>
+                <td>{{offr.DescriptionOrganisme}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

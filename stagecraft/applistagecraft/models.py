@@ -43,7 +43,7 @@ class Offre(models.Model) :
     DureeOffre = models.CharField(max_length = 10)
 
     # Date de début du stage reseignée par le créateur de l'offre (c'est une date)
-    DateDebutOffre = models.DateField()
+    DateDebutStage = models.DateField()
 
     # Adresse de l'offre de stage (nom de la rue et numéro) chaîne de caratères
     AdresseOffre = models.CharField(max_length = 500)
@@ -59,6 +59,9 @@ class Offre(models.Model) :
 
     # Description de l'organisme proposant l'offre de stage, chaîne de caractères
     DescriptionOrganisme = models.CharField(max_length = 10000)
+
+    def __str__(self) -> str :
+        return self.IntituleOffre + '(posté par' + self.OrganismeOffre + ')'
 
 
 

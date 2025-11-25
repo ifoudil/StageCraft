@@ -1,0 +1,10 @@
+{% extends 'applistagecraft/base.html' %}
+
+{% block main %}
+    <h2>Formulaire de Création d'offre de stage</h2>
+    <form class="border border-secondary rounded ms-4 me-4 mt-4 mb-4"  action="#" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-danger">Créer</button>
+    </form>
+{% endblock %}
