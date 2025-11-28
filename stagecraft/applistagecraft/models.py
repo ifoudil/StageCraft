@@ -63,7 +63,30 @@ class Offre(models.Model) :
     def __str__(self) -> str :
         return self.IntituleOffre + '(posté par' + self.OrganismeOffre + ')'
 
+class Regions(models.Model) :
 
+    # Id de la région
+    IdRegion = models.AutoField(primary_key = True)
+
+    # Le nom de la region est une chaine de caractères
+    NomRegion = models.CharField(max_length = 50)
+
+    def __str__(self) -> str :
+        return self.NomRegion
+
+class Departements(models.Model) :
+
+    # Id de la région
+    IdDepartement = models.AutoField(primary_key = True)
+
+    # Le nom de la region est une chaine de caractères
+    NomDepartement = models.CharField(max_length = 50)
+
+    # Le nom de la region est une chaine de caractères
+    CodeDepartement = models.CharField(max_length = 5)
+
+    def __str__(self) -> str :
+        return self.CodeDepartement + ' : ' + self.NomDepartement 
 
 
 

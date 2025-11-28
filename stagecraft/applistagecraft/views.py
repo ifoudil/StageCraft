@@ -33,3 +33,18 @@ def formulaireCreationOffre(request) :
         'applistagecraft/formulaireCreationOffre.html',
         {'form' : form}
     )
+
+def creerOffre(request) :
+
+    form = OffreForm(request.POST)
+    print(form.errors.as_json())
+    if form.is_valid() :
+        intitule = form.cleaned_data['IntituleOffre']
+        print(intitule)
+        form.save()
+
+    return render(
+        request,
+        'applistagecraft/traitementFormulaireCreationOffre.html',
+        {"IntituleOffre": intitule},
+    )
