@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Regions(models.Model) :
 
-    # Id de la région
+    # Id de la région incrémenté automatiquement
     IdRegion = models.AutoField(primary_key = True)
 
     # Le nom de la region est une chaine de caractères
