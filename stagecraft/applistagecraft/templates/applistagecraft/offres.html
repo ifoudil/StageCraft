@@ -16,12 +16,12 @@ Les Offres
                 <th scope="col">Mail du contact</th>
                 <th scope="col">Intitulé de l'offre</th>
                 <th scope="col">Détails de l'offre</th>
-                <th scope="col">EtatOffre</th>
-                <th scope="col">DureeOffre</th>
+                <th scope="col">Duree de l'Offre</th>
+                <th scope="col">Date Début Stage</th>
                 <th scope="col">AdresseOffre</th>
-                <th scope="col">VilleOffre</th>
                 <th scope="col">CodePostalOffre</th>
                 <th scope="col">RegionOffre</th>
+                <th scope="col">VilleOffre</th>
                 <th scope="col">DescriptionOrganisme</th>
             </tr>
         </thead>
@@ -36,7 +36,7 @@ Les Offres
                 <td>{{offr.IntituleOffre}}</td>
                 <td>{{offr.DetailsOffre}}</td>
                 <td>{{offr.DureeOffre}}</td>
-                <td>{{offr.DateDebutOffre}}</td>
+                <td>{{offr.DateDebutStage}}</td>
                 <td>{{offr.AdresseOffre}}</td>
                 <td>{{offr.VilleOffre}}</td>
                 <td>{{offr.CodePostalOffre}}</td>
@@ -46,5 +46,15 @@ Les Offres
             {% endfor %}
         </tbody>
     </table>
+    {% for offr in offres %}
+    <div class="border border-secondary rounded w-auto ms-5 me-5 mt-5">
+        <a href="{{offr.IdOffre}}">
+            <p>{{offr.ImageOffre}}</p>
+            <p>{{offr.OrganismeOffre}}</p>
+            <p>{{offr.IntituleOffre}}</p>
+        </a>
+    </div>
+    {% endfor %}
+    
 {% endblock %}
 

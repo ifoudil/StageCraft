@@ -1,11 +1,24 @@
 from django.db import models
 
 # Create your models here.
+class Regions(models.Model) :
+
+    # Id de la région
+    IdRegion = models.AutoField(primary_key = True)
+
+    # Le nom de la region est une chaine de caractères
+    NomRegion = models.CharField(max_length = 50)
+
+    def __str__(self) -> str :
+        return self.NomRegion
 
 class Offre(models.Model) :
 
     # Id de l'offre déposé qui est une clé primaire auto-incrémentée
     IdOffre = models.AutoField(primary_key = True)
+
+    # Logo de l'entreprise proposant l'offre
+    ImageOffre = models.ImageField(default = 'imagesOffres/logo.png', upload_to = 'imagesOffres')
 
     # Le nom de l'organisme proposant l'offre est une chaine de caractères
     OrganismeOffre = models.CharField(max_length = 50)
@@ -54,8 +67,8 @@ class Offre(models.Model) :
     # Code postal de l'offre de stage, chaîne de caractères
     CodePostalOffre = models.CharField(max_length = 5)
 
-    # Region de l'offre de stage, chaîne de caractères
-    RegionOffre = models.CharField(max_length = 50)
+    # Region de l'offre de stage, selectionnée parmis les regions existante du modele
+    RegionOffre = models.ForeignKey(Regions,on_delete=models.CASCADE)
 
     # Description de l'organisme proposant l'offre de stage, chaîne de caractères
     DescriptionOrganisme = models.CharField(max_length = 10000)
@@ -63,16 +76,6 @@ class Offre(models.Model) :
     def __str__(self) -> str :
         return self.IntituleOffre + '(posté par' + self.OrganismeOffre + ')'
 
-class Regions(models.Model) :
-
-    # Id de la région
-    IdRegion = models.AutoField(primary_key = True)
-
-    # Le nom de la region est une chaine de caractères
-    NomRegion = models.CharField(max_length = 50)
-
-    def __str__(self) -> str :
-        return self.NomRegion
 
 class Departements(models.Model) :
 
@@ -86,7 +89,7 @@ class Departements(models.Model) :
     CodeDepartement = models.CharField(max_length = 5)
 
     def __str__(self) -> str :
-        return self.CodeDepartement + ' : ' + self.NomDepartement 
+        return self.CodeDepartement + ' : ' + self.NomDepartement
 
 
 

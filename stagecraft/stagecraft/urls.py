@@ -24,4 +24,5 @@ urlpatterns = [
     path('offres/', views.offres),
     path('offres/add', views.formulaireCreationOffre),
     path('offres/creerOffre', views.creerOffre),
+    path('offres/<int:offre_id>', views.offre),
 ]

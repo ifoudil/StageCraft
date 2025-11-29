@@ -48,3 +48,15 @@ def creerOffre(request) :
         'applistagecraft/traitementFormulaireCreationOffre.html',
         {"IntituleOffre": intitule},
     )
+
+def offre(request, offre_id) :
+
+    # Récupération des offres de la base de données
+    lOffre = Offre.objects.get(IdOffre = offre_id)
+
+    # retourne emplacement du template offres.html et calcul des offres sous forme de dictionnaire python
+    return render(
+        request,
+        'applistagecraft/offre.html',
+        {'offre': lOffre}
+    )

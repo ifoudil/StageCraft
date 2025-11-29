@@ -1,0 +1,22 @@
+{% extends 'applistagecraft/base.html' %}
+
+{% block title %}
+Les détails de l'offre
+{% endblock %}
+
+{% block main %}
+    <h2>Voici l'offre que nous vous proposons</h2>
+    <p>{{offre.Intitulé}}</p>
+    <p>{{offre.OrganismeOffre}}</p>
+    <p>{{offre.DescriptionOrganisme}}</p>
+    <p>{{offre.DetailsOffre}}</p>
+    <p>{{offre.DureeOffre}}</p>
+    <p>{{offre.DateDebutStage}}</p>
+    <p>{{offre.RegionOffre}}</p>
+    <p>{{offre.CodePostalOffre}}</p>
+    <p>{{offre.VilleOffre}}</p>
+    <p>{{offre.AdresseOffre}}</p>
+    <p>{{offre.NomContact}}</p>
+    <p>{{offre.PrenomContact}}</p>
+    <p>{{offre.MailContact}}</p>
+{% endblock %}

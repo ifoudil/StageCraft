@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from applistagecraft.models import Offre
+from applistagecraft.models import Offre, Regions
 
 class OffreForm(forms.ModelForm) :
     class Meta :
@@ -74,7 +74,5 @@ class OffreForm(forms.ModelForm) :
             'CodePostalOffre': forms.TextInput(attrs={
                 'placeholder': "Code postal du lieu de stage"
             }),
-            'RegionOffre': forms.TextInput(attrs={
-                'placeholder': "Région du lieu de stage"
-            }),
+            'RegionOffre': forms.Select(),
         }
