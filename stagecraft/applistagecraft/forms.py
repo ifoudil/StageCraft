@@ -6,6 +6,7 @@ class OffreForm(forms.ModelForm) :
     class Meta :
         model = Offre
         fields = [
+            'ImageOffre', 
             'OrganismeOffre', 
             'IntituleOffre', 
             'NomContact', 
@@ -20,7 +21,8 @@ class OffreForm(forms.ModelForm) :
             'CodePostalOffre',
             'RegionOffre', ]
         labels = {
-            'OrganismeOffre': 'Organisme',
+            'ImageOffre': 'Logo de l\'Entreprise', 
+            'OrganismeOffre': 'Nom de l\'Entreprise',
             'IntituleOffre': 'Titre du stage',
             'NomContact': 'Nom',
             'PrenomContact': 'Prénom',

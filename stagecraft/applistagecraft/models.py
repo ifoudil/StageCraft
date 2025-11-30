@@ -18,7 +18,7 @@ class Offre(models.Model) :
     IdOffre = models.AutoField(primary_key = True)
 
     # Logo de l'entreprise proposant l'offre
-    ImageOffre = models.ImageField(default = 'imagesOffres/logo.png', upload_to = 'imagesOffres')
+    ImageOffre = models.ImageField(default = 'imagesEntreprises/default.png', upload_to = 'imagesEntreprises')
 
     # Le nom de l'organisme proposant l'offre est une chaine de caractères
     OrganismeOffre = models.CharField(max_length = 50)

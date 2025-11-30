@@ -21,7 +21,9 @@ def offres(request) :
     return render(
         request,
         'applistagecraft/offres.html',
-        {'offres': lesOffres}
+        {
+            'offres': lesOffres,
+        }
     )
 
 def formulaireCreationOffre(request) :
@@ -36,7 +38,7 @@ def formulaireCreationOffre(request) :
 
 def creerOffre(request) :
 
-    form = OffreForm(request.POST)
+    form = OffreForm(request.POST, request.FILES)
     print(form.errors.as_json())
     if form.is_valid() :
         intitule = form.cleaned_data['IntituleOffre']

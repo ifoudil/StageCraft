@@ -5,53 +5,22 @@ Les Offres
 {% endblock %}
 
 {% block main %}
-    <h2 class="text-center mt-1 fw-bold text-uppercase">Voici les {{offres|length}} offres que nous vous proposons</h2>
-    <table class="table table-bordered w-auto ms-5 mt-5">
-        <thead class="table-danger">
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Organisme</th>
-                <th scope="col">Nom du contact</th>
-                <th scope="col">Prénom du contact</th>
-                <th scope="col">Mail du contact</th>
-                <th scope="col">Intitulé de l'offre</th>
-                <th scope="col">Détails de l'offre</th>
-                <th scope="col">Duree de l'Offre</th>
-                <th scope="col">Date Début Stage</th>
-                <th scope="col">AdresseOffre</th>
-                <th scope="col">CodePostalOffre</th>
-                <th scope="col">RegionOffre</th>
-                <th scope="col">VilleOffre</th>
-                <th scope="col">DescriptionOrganisme</th>
-            </tr>
-        </thead>
-        <tbody class="align-middle">
-            {% for offr in offres %}
-            <tr>
-                <th scope="row">{{offr.IdOffre}}</th>
-                <td>{{offr.OrganismeOffre}}</td>
-                <td>{{offr.NomContact}}</td>
-                <td>{{offr.PrenomContact}}</td>
-                <td>{{offr.MailContact}}</td>
-                <td>{{offr.IntituleOffre}}</td>
-                <td>{{offr.DetailsOffre}}</td>
-                <td>{{offr.DureeOffre}}</td>
-                <td>{{offr.DateDebutStage}}</td>
-                <td>{{offr.AdresseOffre}}</td>
-                <td>{{offr.VilleOffre}}</td>
-                <td>{{offr.CodePostalOffre}}</td>
-                <td>{{offr.RegionOffre}}</td>
-                <td>{{offr.DescriptionOrganisme}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h2 class="text-center mt-5 fw-bold text-uppercase mb-5">Voici les {{offres|length}} offres que nous vous proposons</h2>
     {% for offr in offres %}
-    <div class="border border-secondary rounded w-auto ms-5 me-5 mt-5">
-        <a href="{{offr.IdOffre}}">
-            <p>{{offr.ImageOffre}}</p>
-            <p>{{offr.OrganismeOffre}}</p>
-            <p>{{offr.IntituleOffre}}</p>
+    <div class="border rounded border-dark p-3 mx-auto mt-3" style="max-width: 900px;">
+        <a class="text-reset text-decoration-none" href="{{offr.IdOffre}}">
+            <div class="row align-items-center mt-3">
+                <div class="col-auto d-flex align-items-center">
+                    <img class="mt-2 me-3" src="{{MEDIA_URL}}{{offr.ImageOffre}}" width="100" alt="Image de l'entreprise" title="{{offr.IntituleOffre}}">
+                    <p class="mb-0 me-4">{{offr.OrganismeOffre}}</p>
+                </div>
+                <div class="col text-center">
+                    <p class="mb-0">{{offr.IntituleOffre}}</p>
+                </div>
+                <div class="col-auto d-flex me-3 justify-content-end border rounded border-dark">
+                    <p class="mb-0">{{offr.EtatOffre}}</p>
+                </div>
+            </div>
         </a>
     </div>
     {% endfor %}

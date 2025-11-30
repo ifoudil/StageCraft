@@ -5,18 +5,42 @@ Les détails de l'offre
 {% endblock %}
 
 {% block main %}
-    <h2>Voici l'offre que nous vous proposons</h2>
-    <p>{{offre.Intitulé}}</p>
-    <p>{{offre.OrganismeOffre}}</p>
-    <p>{{offre.DescriptionOrganisme}}</p>
-    <p>{{offre.DetailsOffre}}</p>
-    <p>{{offre.DureeOffre}}</p>
-    <p>{{offre.DateDebutStage}}</p>
-    <p>{{offre.RegionOffre}}</p>
-    <p>{{offre.CodePostalOffre}}</p>
-    <p>{{offre.VilleOffre}}</p>
-    <p>{{offre.AdresseOffre}}</p>
-    <p>{{offre.NomContact}}</p>
-    <p>{{offre.PrenomContact}}</p>
-    <p>{{offre.MailContact}}</p>
+<table class="table table-bordered w-auto ms-5 mt-5">
+    <thead class="table-danger">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Organisme</th>
+            <th scope="col">Nom du contact</th>
+            <th scope="col">Prénom du contact</th>
+            <th scope="col">Mail du contact</th>
+            <th scope="col">Intitulé de l'offre</th>
+            <th scope="col">Détails de l'offre</th>
+            <th scope="col">Duree de l'Offre</th>
+            <th scope="col">Date Début Stage</th>
+            <th scope="col">AdresseOffre</th>
+            <th scope="col">CodePostalOffre</th>
+            <th scope="col">RegionOffre</th>
+            <th scope="col">VilleOffre</th>
+            <th scope="col">DescriptionOrganisme</th>
+        </tr>
+    </thead>
+    <tbody class="align-middle">
+        <tr>
+            <th scope="row">{{offr.IdOffre}}</th>
+            <td>{{offre.OrganismeOffre}}</td>
+            <td>{{offre.NomContact}}</td>
+            <td>{{offre.PrenomContact}}</td>
+            <td>{{offre.MailContact}}</td>
+            <td>{{offre.IntituleOffre}}</td>
+            <td>{{offre.DetailsOffre}}</td>
+            <td>{{offre.DureeOffre}}</td>
+            <td>{{offre.DateDebutStage}}</td>
+            <td>{{offre.AdresseOffre}}</td>
+            <td>{{offre.VilleOffre}}</td>
+            <td>{{offre.CodePostalOffre}}</td>
+            <td>{{offre.RegionOffre}}</td>
+            <td>{{offre.DescriptionOrganisme}}</td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}
