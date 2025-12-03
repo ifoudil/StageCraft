@@ -23,20 +23,21 @@ Les Offres
                     <p class="mb-0">{{offr.IntituleOffre}}</p>
                 </div>
             </a>
-            <form action="" class="col-auto d-flex me-3 justify-content-end">
+            <form action="/offres/{{offr.IdOffre}}/modifierEtat" class="col-auto d-flex me-3 justify-content-end" method="post">
                 {% csrf_token %}
                 <div class="mb-3">
                     <select name="etat" required id="id_etat" >
-                        <option selected disabled>Choisissez</option>
                         {% for e in etats %}
-                        <option value="{{e.IdEtatsOffres}}">{{e.NomEtatsOffres}}</option>
+                            {% if offr.EtatOffre == e %}
+                                <option selected disabled value="{{e.IdEtatsOffres}}">{{e.NomEtatsOffres}}</option>
+                            {% else %}
+                                <option value="{{e.IdEtatsOffres}}">{{e.NomEtatsOffres}}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
+                    <input class="btn btn-rounded btn-danger ms-3" type="submit" value="SAUVEGARDE" />
                 </div>
-    
             </form>
-            
-
         </div>        
     </div>
     {% endfor %}

@@ -65,11 +65,20 @@ def offre(request, offre_id) :
         {'offre': lOffre}
     )
 
-def etatsOffres(request, etat_id):
-    etat = EtatsOffres.objects.get(IdEtatsOffres = etat_id)
+def modifierEtatsOffres(request, id_offre):
 
-    return render(request, "mon_template.html", {
-        "etats": etats,
-        "offr": offr
-    })
+    if request.method == "POST":
+        id_etat = request.POST.get("etat")  # valeur du SELECT
+
+        offre = Offre.objects.get(IdOffre=id_offre)
+        offre.EtatOffre_id = id_etat        # si ForeignKey
+        offre.save()
+
+        return render(
+            request, 
+            "applistagecraft/traitementFormulaireEtat.html", 
+            {"offre": offre}
+        )
+
+    
 
