@@ -12,6 +12,17 @@ class Regions(models.Model) :
     def __str__(self) -> str :
         return self.NomRegion
 
+class EtatsOffres(models.Model) :
+
+    # Id de l'état'
+    IdEtatsOffres = models.AutoField(primary_key = True)
+
+    # Le nom de l'état
+    NomEtatsOffres = models.CharField(max_length = 50)
+
+    def __str__(self) -> str :
+        return self.NomEtatsOffres
+
 class Offre(models.Model) :
 
     # Id de l'offre déposé qui est une clé primaire auto-incrémentée
@@ -50,7 +61,7 @@ class Offre(models.Model) :
     ]
 
     # Etat de l'offre mis automatiquement à en attente et chaine de de caractères
-    EtatOffre = models.CharField(max_length = 20, choices = ETATS, default = 'attente')
+    EtatOffre = models.ForeignKey(EtatsOffres,on_delete=models.CASCADE, default=1)
 
     # Duree du stage exemple 4 mois chaine de caracteres
     DureeOffre = models.CharField(max_length = 10)
@@ -90,6 +101,8 @@ class Departements(models.Model) :
 
     def __str__(self) -> str :
         return self.CodeDepartement + ' : ' + self.NomDepartement
+
+
 
 
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Importation des modeles
-from applistagecraft.models import Offre
+from applistagecraft.models import Offre, EtatsOffres
 from applistagecraft.forms import OffreForm
 
 # Create your views here.
@@ -16,6 +16,7 @@ def offres(request) :
 
     # Récupération des offres de la base de données
     lesOffres = Offre.objects.all()
+    lesEtats = EtatsOffres.objects.all()
 
     # retourne emplacement du template offres.html et calcul des offres sous forme de dictionnaire python
     return render(
@@ -23,6 +24,7 @@ def offres(request) :
         'applistagecraft/offres.html',
         {
             'offres': lesOffres,
+            'etats': lesEtats
         }
     )
 
@@ -55,10 +57,19 @@ def offre(request, offre_id) :
 
     # Récupération des offres de la base de données
     lOffre = Offre.objects.get(IdOffre = offre_id)
-
+    
     # retourne emplacement du template offres.html et calcul des offres sous forme de dictionnaire python
     return render(
         request,
         'applistagecraft/offre.html',
         {'offre': lOffre}
     )
+
+def etatsOffres(request, etat_id):
+    etat = EtatsOffres.objects.get(IdEtatsOffres = etat_id)
+
+    return render(request, "mon_template.html", {
+        "etats": etats,
+        "offr": offr
+    })
+
