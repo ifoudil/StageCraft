@@ -80,5 +80,19 @@ def modifierEtatsOffres(request, id_offre):
             {"offre": offre}
         )
 
-    
+
+def searchOffres(request) :
+    info = request.POST.get('search')
+    lesOffres = Offre.objects.filter(OrganismeOffre__contains=info) | Offre.objects.filter(IntituleOffre__contains=info)
+
+    lesEtats = EtatsOffres.objects.all()
+
+    return render(
+        request,
+        'applistagecraft/offres.html',
+        {
+            'offres': lesOffres,
+            'etats': lesEtats
+        }
+    )
 

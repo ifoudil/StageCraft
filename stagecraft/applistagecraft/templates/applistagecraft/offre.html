@@ -5,7 +5,7 @@ Les détails de l'offre
 {% endblock %}
 
 {% block main %}
-<table class="table table-bordered w-auto ms-5 mt-5">
+<!-- <table class="table table-bordered w-auto ms-5 mt-5">
     <thead class="table-danger">
         <tr>
             <th scope="col"></th>
@@ -42,5 +42,128 @@ Les détails de l'offre
             <td>{{offre.DescriptionOrganisme}}</td>
         </tr>
     </tbody>
-</table>
+</table> -->
+<div class="container my-5">
+
+    <h1 class="text-center fw-bold text-uppercase mb-5">{{offre.IntituleOffre}}</h1>
+
+    <!-- Organisme -->
+    <div class="mb-4">
+        <p class="fw-semibold">Organisme</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.OrganismeOffre}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description Organisme -->
+    <div class="mb-4">
+        <p class="fw-semibold">Description Organisme</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.DescriptionOrganisme}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Détails -->
+    <div class="mb-4">
+        <p class="fw-semibold">Détails de l'offre</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.DetailsOffre}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Durée -->
+    <div class="mb-4">
+        <p class="fw-semibold">Durée de l'offre</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.DureeOffre}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Date début -->
+    <div class="mb-4">
+        <p class="fw-semibold">Date de début</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.DateDebutStage}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adresse -->
+    <div class="mb-4">
+        <p class="fw-semibold">Adresse</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.AdresseOffre}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code postal -->
+    <div class="mb-4">
+        <p class="fw-semibold">Code Postal</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.CodePostalOffre}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ville -->
+    <div class="mb-4">
+        <p class="fw-semibold">Ville</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.VilleOffre}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Région -->
+    <div class="mb-4">
+        <p class="fw-semibold">Région</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.RegionOffre}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="mb-4">
+        <p class="fw-semibold">Nom du contact</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.NomContact}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <p class="fw-semibold">Prénom du contact</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.PrenomContact}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <p class="fw-semibold">Email du contact</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p>{{offre.MailContact}}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
 {% endblock %}

@@ -28,6 +28,7 @@ urlpatterns = [
     path('offres/creerOffre', views.creerOffre),
     path('offres/<int:offre_id>', views.offre),
     path('offres/<int:id_offre>/modifierEtat', views.modifierEtatsOffres),
+    path('offres/search/', views.searchOffres),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
