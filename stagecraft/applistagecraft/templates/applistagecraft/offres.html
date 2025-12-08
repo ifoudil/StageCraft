@@ -11,7 +11,6 @@ Les Offres
         <div class="mb-3">
             <input type="search" placeholder="Recherche dans le texte" id="search" name="search" />
         </div>
-        <!-- <img src="./images/loop.png" alt="loop image"/> -->
         <button type="submit" class="btn btn-danger mt-3">rechercher</button>
     </form>
     {% for offr in offres %}
@@ -31,6 +30,8 @@ Les Offres
                     <p class="mb-0">{{offr.IntituleOffre}}</p>
                 </div>
             </a>
+
+            {% if user.is_staff %}
             <form action="/offres/{{offr.IdOffre}}/modifierEtat" class="col-auto d-flex me-3 justify-content-end" method="post">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -46,6 +47,7 @@ Les Offres
                     <input class="btn btn-rounded btn-danger ms-3" type="submit" value="SAUVEGARDE" />
                 </div>
             </form>
+            {% endif %}
         </div>        
     </div>
     {% endfor %}
