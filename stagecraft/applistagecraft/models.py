@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 # Create your models here.
 class Regions(models.Model) :
@@ -101,6 +104,15 @@ class Departements(models.Model) :
 
     def __str__(self) -> str :
         return self.CodeDepartement + ' : ' + self.NomDepartement
+
+class Candidature(models.Model):
+    IdCandidature = models.AutoField(primary_key=True)
+    Etudiant = models.ForeignKey(User, on_delete=models.CASCADE)
+    Offre = models.ForeignKey(Offre, on_delete=models.CASCADE)
+    DateCandidature = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"Candidature de {self.Etudiant.username} pour {self.Offre.IntituleOffre}"
 
 
 

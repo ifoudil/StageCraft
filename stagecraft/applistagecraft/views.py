@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Importation des modeles
-from applistagecraft.models import Offre, EtatsOffres
+from applistagecraft.models import Offre, EtatsOffres, Candidature
 from applistagecraft.forms import OffreForm
 
 # Create your views here.
@@ -53,16 +53,39 @@ def creerOffre(request) :
         {"IntituleOffre": intitule},
     )
 
-def offre(request, offre_id) :
+# def offre(request, offre_id) :
 
-    # Récupération des offres de la base de données
+#     # Récupération des offres de la base de données
+#     lOffre = Offre.objects.get(IdOffre = offre_id)
+    
+#     # retourne emplacement du template offres.html et calcul des offres sous forme de dictionnaire python
+#     return render(
+#         request,
+#         'applistagecraft/offre.html',
+#         {'offre': lOffre}
+#     )
+
+
+
+def offre(request, offre_id) :
+    # Récupération de l'offre
     lOffre = Offre.objects.get(IdOffre = offre_id)
     
-    # retourne emplacement du template offres.html et calcul des offres sous forme de dictionnaire python
+    # --- AJOUT DU CALCUL ---
+    # On compte combien de candidatures existent pour cette offre
+    nb_candidats = Candidature.objects.filter(Offre=lOffre).count()
+    
+    # On calcule le reste (5 places max)
+    places_restantes = 5 - nb_candidats
+    # -----------------------
+
     return render(
         request,
         'applistagecraft/offre.html',
-        {'offre': lOffre}
+        {
+            'offre': lOffre,
+            'places_restantes': places_restantes  # On passe la variable au template
+        }
     )
 
 def modifierEtatsOffres(request, id_offre):
@@ -96,3 +119,50 @@ def searchOffres(request) :
         }
     )
 
+def candidater(request, offre_id):
+    # On récupère l'offre avec la méthode standard get()
+    # Note : Si l'ID n'existe pas, cela renverra une erreur 500 (Offre.DoesNotExist), 
+    # ce qui est le comportement standard sans get_object_or_404.
+    lOffre = Offre.objects.get(IdOffre=offre_id)
+
+    lesOffres = Offre.objects.all()
+    lesEtats = EtatsOffres.objects.all()
+
+    # Vérifier si l'étudiant a déjà candidaté
+    deja_candidat = Candidature.objects.filter(Offre=lOffre, Etudiant=request.user).exists()
+
+    if deja_candidat:
+        # Redirection simple vers la liste si déjà candidat
+        return render(
+            request,
+            'applistagecraft/offres.html',
+            {
+                'offres': lesOffres,
+                'etats': lesEtats
+            }
+        )
+
+    # Compter les candidatures existantes
+    nb_candidats = Candidature.objects.filter(Offre=lOffre).count()
+
+    if nb_candidats < 5:
+        # Créer la candidature
+        Candidature.objects.create(Etudiant=request.user, Offre=lOffre)
+
+        # Vérifier si on atteint le quota (4 + 1 = 5)
+        if nb_candidats + 1 >= 5:
+            # Récupérer l'état Cloturee (on suppose qu'il existe ou on le crée)
+            etat_cloture, created = EtatsOffres.objects.get_or_create(NomEtatsOffres="Cloturee")
+            lOffre.EtatOffre = etat_cloture
+            lOffre.save()
+
+    # Redirection vers la page des offres
+    return render(
+        request,
+        'applistagecraft/offres.html',
+        {
+            'offres': lesOffres,
+            'etats': lesEtats
+        }
+
+    )
