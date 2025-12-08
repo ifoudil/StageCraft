@@ -13,7 +13,15 @@
     </head>
     <body class="Site">
         <header>
-            {% include 'applistagecraft/menu.html' %}
+            {% if user.is_superuser %}
+                {% include 'applicompte/menuAdmin.html' %}
+            {% elif user.is_staff %}
+                {% include 'applicompte/menuProf.html' %}
+            {% elif user.is_authenticated %}
+                {% include 'applicompte/menuEtudiant.html' %}
+            {% else %}
+                {% include 'applicompte/menuEntreprise.html' %}
+            {% endif %}
         </header>
         <main class="Site-content">
             {% block main %}{% endblock %}

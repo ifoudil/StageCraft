@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'applistagecraft',
+    'applicompte',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Répertoire des images
 MEDIA_URL = 'images/'
 MEDIA_ROOT = BASE_DIR / 'applistagecraft/images'
+
+# Gestion des emails
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

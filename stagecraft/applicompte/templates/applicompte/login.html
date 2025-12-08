@@ -1,0 +1,26 @@
+{% extends 'applistagecraft/base.html' %}
+{% block title %}Connexion{% endblock %}
+{% block main %}
+
+<form id="form_login" class="ms-3 mt-3" method="post" action="/connexion/">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_username">Identifiant</label>
+        <input type="text" class="form-control w-auto" id="id_username" name="username" placeholder="Votre identifiant">
+    </div>
+    <div class="mb-3">
+        <label for="id_password">Mot de passe</label>
+        <input type="password" class="form-control w-auto" id="id_password" name="password" placeholder="Votre mot de passe">
+    </div>
+    <button type="submit" class="btn btn-primary">Se connecter</button>
+</form>
+
+<hr class="hr mt-4" />
+
+<div class="ms-3 mt-2">
+    <small>
+        Mot de passe oublié ?
+        <a href="/password_reset">Renouveler mon mot de passe</a>
+    </small>
+</div>
+{% endblock %}

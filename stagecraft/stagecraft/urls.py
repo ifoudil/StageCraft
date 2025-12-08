@@ -30,5 +30,13 @@ urlpatterns = [
     path('offres/<int:id_offre>/modifierEtat', views.modifierEtatsOffres),
     path('offres/search/', views.searchOffres),
 ]
+# from django.urls import path, include
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('', include('applistagecraft.urls')),
+#     path('', include('applicompte.urls')),
+
+# ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
