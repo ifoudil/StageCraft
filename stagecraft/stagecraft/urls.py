@@ -17,8 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from applistagecraft import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', views.test),
+    path('offres/', views.offres),
+    path('offres/add', views.formulaireCreationOffre),
+    path('offres/creerOffre', views.creerOffre),
+    path('offres/<int:offre_id>', views.offre),
+    path('offres/<int:id_offre>/modifierEtat', views.modifierEtatsOffres),
+    path('offres/search/', views.searchOffres),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

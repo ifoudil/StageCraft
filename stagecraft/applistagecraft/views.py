@@ -1,5 +1,9 @@
 from django.shortcuts import render
 
+# Importation des modeles
+from applistagecraft.models import Offre, EtatsOffres
+from applistagecraft.forms import OffreForm
+
 # Create your views here.
 
 def test(request):
@@ -7,3 +11,88 @@ def test(request):
         request,
         'applistagecraft/test.html',
     )
+
+def offres(request) :
+
+    # Récupération des offres de la base de données
+    lesOffres = Offre.objects.all()
+    lesEtats = EtatsOffres.objects.all()
+
+    # retourne emplacement du template offres.html et calcul des offres sous forme de dictionnaire python
+    return render(
+        request,
+        'applistagecraft/offres.html',
+        {
+            'offres': lesOffres,
+            'etats': lesEtats
+        }
+    )
+
+def formulaireCreationOffre(request) :
+    form = OffreForm
+
+    # Retrour de l'emplacement du template de creation d'offre
+    return render(
+        request,
+        'applistagecraft/formulaireCreationOffre.html',
+        {'form' : form}
+    )
+
+def creerOffre(request) :
+
+    form = OffreForm(request.POST, request.FILES)
+    print(form.errors.as_json())
+    if form.is_valid() :
+        intitule = form.cleaned_data['IntituleOffre']
+        print(intitule)
+        form.save()
+
+    return render(
+        request,
+        'applistagecraft/traitementFormulaireCreationOffre.html',
+        {"IntituleOffre": intitule},
+    )
+
+def offre(request, offre_id) :
+
+    # Récupération des offres de la base de données
+    lOffre = Offre.objects.get(IdOffre = offre_id)
+    
+    # retourne emplacement du template offres.html et calcul des offres sous forme de dictionnaire python
+    return render(
+        request,
+        'applistagecraft/offre.html',
+        {'offre': lOffre}
+    )
+
+def modifierEtatsOffres(request, id_offre):
+
+    if request.method == "POST":
+        id_etat = request.POST.get("etat")  # valeur du SELECT
+
+        offre = Offre.objects.get(IdOffre=id_offre)
+        offre.EtatOffre_id = id_etat        # si ForeignKey
+        offre.save()
+
+        return render(
+            request, 
+            "applistagecraft/traitementFormulaireEtat.html", 
+            {"offre": offre}
+        )
+
+
+def searchOffres(request) :
+    info = request.POST.get('search')
+    lesOffres = Offre.objects.filter(OrganismeOffre__contains=info) | Offre.objects.filter(IntituleOffre__contains=info)
+
+    lesEtats = EtatsOffres.objects.all()
+
+    return render(
+        request,
+        'applistagecraft/offres.html',
+        {
+            'offres': lesOffres,
+            'etats': lesEtats
+        }
+    )
+

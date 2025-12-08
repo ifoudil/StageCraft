@@ -1,0 +1,53 @@
+{% extends 'applistagecraft/base.html' %}
+
+{% block title %}
+Les Offres
+{% endblock %}
+
+{% block main %}
+    <h2 class="text-center mt-5 fw-bold text-uppercase mb-5">Voici les {{offres|length}} offres que nous vous proposons</h2>
+    <form enctype="multipart/form-data" action="/offres/search/" method="post" class="m-5">
+        {% csrf_token %}
+        <div class="mb-3">
+            <input type="search" placeholder="Recherche dans le texte" id="search" name="search" />
+        </div>
+        <!-- <img src="./images/loop.png" alt="loop image"/> -->
+        <button type="submit" class="btn btn-danger mt-3">rechercher</button>
+    </form>
+    {% for offr in offres %}
+    <div class="border rounded border-dark p-3 mx-auto mt-3" style="max-width: 900px;">
+        <div class="row align-items-center mt-3">
+
+            <a class="text-reset text-decoration-none col d-flex align-items-center"
+               href="{{offr.IdOffre}}">
+
+                <div class="col-auto d-flex align-items-center">
+                    <img class="mt-2 me-3" src="{{MEDIA_URL}}{{offr.ImageOffre}}" 
+                         width="100" alt="Image" title="{{offr.IntituleOffre}}">
+                    <p class="mb-0 me-4">{{offr.OrganismeOffre}}</p>
+                </div>
+
+                <div class="col text-center">
+                    <p class="mb-0">{{offr.IntituleOffre}}</p>
+                </div>
+            </a>
+            <form action="/offres/{{offr.IdOffre}}/modifierEtat" class="col-auto d-flex me-3 justify-content-end" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <select name="etat" required id="id_etat" >
+                        {% for e in etats %}
+                            {% if offr.EtatOffre == e %}
+                                <option selected disabled value="{{e.IdEtatsOffres}}">{{e.NomEtatsOffres}}</option>
+                            {% else %}
+                                <option value="{{e.IdEtatsOffres}}">{{e.NomEtatsOffres}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <input class="btn btn-rounded btn-danger ms-3" type="submit" value="SAUVEGARDE" />
+                </div>
+            </form>
+        </div>        
+    </div>
+    {% endfor %}
+{% endblock %}
+
