@@ -166,3 +166,13 @@ def candidater(request, offre_id):
         }
 
     )
+
+def mes_candidatures(request):
+    # On récupère les candidatures de l'étudiant connecté
+    candidatures = Candidature.objects.filter(Etudiant=request.user)
+    
+    return render(
+        request, 
+        'applistagecraft/mes_candidatures.html', 
+        {'candidatures': candidatures}
+    )
