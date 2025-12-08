@@ -11,4 +11,8 @@ urlpatterns = [
     path('offres/search/', views.searchOffres),
     path('offres/<int:offre_id>/candidater', views.candidater, name='candidater'),
     path('mes-candidatures/', views.mes_candidatures, name='mes_candidatures'),
+    path('offres/en-attente/', views.offresEnAttente),
+    path('offres/validees/', views.offresValidees),
+    path('offres/refusees/', views.offresRefusees),
+    path('offres/cloturees/', views.offresCloturees),
 ]

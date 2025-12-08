@@ -318,3 +318,107 @@ def mes_candidatures(request):
             request,
             'applicompte/login.html'
         )
+
+def offresEnAttente(request):
+    user = None
+
+    if request.user.is_staff :
+        lesOffres = Offre.objects.filter(EtatOffre__NomEtatsOffres="En attente de validation")
+        lesEtats = EtatsOffres.objects.all()
+        user = request.user
+
+        return render(request, 'applistagecraft/offres.html', {
+            'offres': lesOffres,
+            'etats': lesEtats,
+            'user': user
+        })
+    elif request.user.is_authenticated :
+        lesOffres = Offre.objects.all()
+        lesEtats = EtatsOffres.objects.all()
+        user = request.user
+
+        return render(request, 'applistagecraft/offres.html', {
+            'offres': lesOffres,
+            'etats': lesEtats,
+            'user': user
+        })
+    else :
+        return render(request, 'applicompte/login.html')
+
+def offresValidees(request):
+    user = None
+
+    if request.user.is_superuser :
+        lesOffres = Offre.objects.filter(EtatOffre__NomEtatsOffres="Validée")
+        lesEtats = EtatsOffres.objects.all()
+        user = request.user
+
+        return render(request, 'applistagecraft/offres.html', {
+            'offres': lesOffres,
+            'etats': lesEtats,
+            'user': user
+        })
+    elif request.user.is_authenticated :
+        lesOffres = Offre.objects.all()
+        lesEtats = EtatsOffres.objects.all()
+        user = request.user
+
+        return render(request, 'applistagecraft/offres.html', {
+            'offres': lesOffres,
+            'etats': lesEtats,
+            'user': user
+        })
+    else :
+        return render(request, 'applicompte/login.html')
+
+def offresRefusees(request):
+    user = None
+
+    if request.user.is_superuser :
+        lesOffres = Offre.objects.filter(EtatOffre__NomEtatsOffres="Refusée")
+        lesEtats = EtatsOffres.objects.all()
+        user = request.user
+
+        return render(request, 'applistagecraft/offres.html', {
+            'offres': lesOffres,
+            'etats': lesEtats,
+            'user': user
+        })
+    elif request.user.is_authenticated :
+        lesOffres = Offre.objects.all()
+        lesEtats = EtatsOffres.objects.all()
+        user = request.user
+
+        return render(request, 'applistagecraft/offres.html', {
+            'offres': lesOffres,
+            'etats': lesEtats,
+            'user': user
+        })
+    else :
+        return render(request, 'applicompte/login.html')
+
+def offresCloturees(request):
+    user = None
+
+    if request.user.is_superuser :
+        lesOffres = Offre.objects.filter(EtatOffre__NomEtatsOffres="Cloturee")
+        lesEtats = EtatsOffres.objects.all()
+        user = request.user
+
+        return render(request, 'applistagecraft/offres.html', {
+            'offres': lesOffres,
+            'etats': lesEtats,
+            'user': user
+        })
+    elif request.user.is_authenticated :
+        lesOffres = Offre.objects.all()
+        lesEtats = EtatsOffres.objects.all()
+        user = request.user
+
+        return render(request, 'applistagecraft/offres.html', {
+            'offres': lesOffres,
+            'etats': lesEtats,
+            'user': user
+        })
+    else :
+        return render(request, 'applicompte/login.html')

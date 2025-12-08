@@ -13,6 +13,18 @@ Les Offres
         </div>
         <button type="submit" class="btn btn-danger mt-3">rechercher</button>
     </form>
+    <div class="d-flex justify-content-center gap-2 mb-3">
+        {% if user.is_staff %}
+            <a href="/offres/" class="btn btn-dark">Toutes les offres</a>
+            <a href="/offres/en-attente/" class="btn btn-outline-warning">En attente de validation</a>
+        {% endif %}
+
+        {% if user.is_superuser %}
+            <a href="/offres/validees/" class="btn btn-outline-success">Validée</a>
+            <a href="/offres/refusees/" class="btn btn-outline-danger">Refusée</a>
+            <a href="/offres/cloturees/" class="btn btn-outline-secondary">Clôturée</a>
+        {% endif %}
+    </div>
     {% for offr in offres %}
     {% if not user.is_staff and offr.EtatOffre.NomEtatsOffres == "Validée" %}
     <div class="border rounded border-dark p-3 mx-auto mt-3" style="max-width: 900px;">
