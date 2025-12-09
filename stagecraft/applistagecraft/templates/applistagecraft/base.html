@@ -23,10 +23,12 @@
                 {% include 'applicompte/menuEntreprise.html' %}
             {% endif %}
         </header>
-        <main class="Site-content d-flex topbar-margin">
+        <aside class="topbar-margin">
             {% if user.is_superuser %}
             {% include 'applicompte/dashboard.html' %}
             {% endif %}
+        </aside>
+        <main class="Site-content d-flex">
             <div class="flex-grow-1 p-3">
                 {% block main %}{% endblock %}
             </div>           
