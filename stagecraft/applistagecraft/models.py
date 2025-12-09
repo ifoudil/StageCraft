@@ -54,14 +54,6 @@ class Offre(models.Model) :
     # Détails sur l'offre avec par exemple les missions du stage, chaîne de caractères
     DetailsOffre = models.CharField(max_length = 10000)
 
-    # Etat possible (pas affiché dans le formulaire de création)
-    ETATS = [
-        ('attente', 'En attente de validation'),
-        ('validee', 'Validée'),
-        ('Refusee', 'Refusée'),
-        ('Cloturee', 'Cloturée')
-    ]
-
     # Etat de l'offre mis automatiquement à en attente et chaine de de caractères
     EtatOffre = models.ForeignKey(EtatsOffres,on_delete=models.CASCADE, default=1)
 

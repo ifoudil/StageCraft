@@ -1,150 +1,98 @@
 {% extends 'applistagecraft/base.html' %}
 
 {% block title %}
-Les détails de l'offre
+{{offre.IntituleOffre}} - Détails
 {% endblock %}
 
 {% block main %}
 <div class="container my-5">
-
-    <h1 class="text-center fw-bold text-uppercase mb-5">{{offre.IntituleOffre}}</h1>
-
-    <!-- Organisme -->
-    <div class="mb-4">
-        <p class="fw-semibold">Organisme</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.OrganismeOffre}}</p>
+    
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center flex-wrap">
+                <div class="flex-shrink-0 me-4 mb-3 mb-md-0">
+                     <img src="{{MEDIA_URL}}{{offre.ImageOffre}}" 
+                         alt="Logo {{offre.OrganismeOffre}}" 
+                         class="rounded border bg-white p-2"
+                         style="width: 100px; height: 100px; object-fit: contain;">
+                </div>
+                <div class="flex-grow-1">
+                    <h1 class="fw-bold mb-1 h2">{{offre.IntituleOffre}}</h1>
+                    <h4 class="text-muted fw-normal mb-3">{{offre.OrganismeOffre}}</h4>
+                    <div class="d-flex flex-wrap gap-3">
+                        <span class="badge bg-light text-dark border"><i class="bi bi-geo-alt me-1"></i> {{offre.VilleOffre}} ({{offre.CodePostalOffre}})</span>
+                        <span class="badge bg-light text-dark border"><i class="bi bi-calendar-event me-1"></i> Début : {{offre.DateDebutStage}}</span>
+                        <span class="badge bg-light text-dark border"><i class="bi bi-hourglass-split me-1"></i> Durée : {{offre.DureeOffre}}</span>
+                    </div>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="mt-3 mt-lg-0 ms-lg-auto text-center">
+                    {% if offre.EtatOffre.NomEtatsOffres != "Cloturée" %}
+                         <div class="mb-2">
+                             <span class="d-block fw-bold text-danger mb-1">{{ places_restantes }} places restantes</span>
+                             <small class="text-muted">sur 5 places</small>
+                         </div>
+                        <form action="/offres/{{offre.IdOffre}}/candidater" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning btn-lg px-4 rounded-pill shadow-sm">Postuler maintenant</button>
+                        </form>
+                    {% else %}
+                        <button class="btn btn-secondary btn-lg rounded-pill" disabled>Offre Clôturée</button>
+                    {% endif %}
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
 
-    <!-- Description Organisme -->
-    <div class="mb-4">
-        <p class="fw-semibold">Description Organisme</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.DescriptionOrganisme}}</p>
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                    <h5 class="fw-bold border-start border-4 border-primary ps-2">Description du stage</h5>
+                </div>
+                <div class="card-body px-4 pb-4 text-secondary" style="white-space: pre-line;">
+                    {{offre.DetailsOffre}}
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                    <h5 class="fw-bold border-start border-4 border-info ps-2">À propos de {{offre.OrganismeOffre}}</h5>
+                </div>
+                <div class="card-body px-4 pb-4 text-secondary" style="white-space: pre-line;">
+                    {{offre.DescriptionOrganisme}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-dark text-white py-3">
+                    <h5 class="card-title mb-0 fs-6"><i class="bi bi-info-circle me-2"></i>Informations pratiques</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item p-3">
+                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.75rem;">Localisation</small>
+                        <p class="mb-0 mt-1 fw-medium">{{offre.AdresseOffre}}<br>{{offre.CodePostalOffre}} {{offre.VilleOffre}}<br>{{offre.RegionOffre}}</p>
+                    </div>
+                    
+                    <div class="list-group-item p-3">
+                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.75rem;">Contact Recruteur</small>
+                        <p class="mb-0 mt-1 fw-bold">{{offre.PrenomContact}} {{offre.NomContact}}</p>
+                        <a href="mailto:{{offre.MailContact}}" class="text-decoration-none text-primary small">{{offre.MailContact}}</a>
+                    </div>
+                    
+                    <div class="list-group-item p-3 bg-light">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="small text-muted">Référence de l'offre</span>
+                            <span class="font-monospace fw-bold">#{{offre.IdOffre}}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Détails -->
-    <div class="mb-4">
-        <p class="fw-semibold">Détails de l'offre</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.DetailsOffre}}</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Durée -->
-    <div class="mb-4">
-        <p class="fw-semibold">Durée de l'offre</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.DureeOffre}}</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Date début -->
-    <div class="mb-4">
-        <p class="fw-semibold">Date de début</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.DateDebutStage}}</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Adresse -->
-    <div class="mb-4">
-        <p class="fw-semibold">Adresse</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.AdresseOffre}}</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Code postal -->
-    <div class="mb-4">
-        <p class="fw-semibold">Code Postal</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.CodePostalOffre}}</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Ville -->
-    <div class="mb-4">
-        <p class="fw-semibold">Ville</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.VilleOffre}}</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Région -->
-    <div class="mb-4">
-        <p class="fw-semibold">Région</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.RegionOffre}}</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contact -->
-    <div class="mb-4">
-        <p class="fw-semibold">Nom du contact</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.NomContact}}</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="mb-4">
-        <p class="fw-semibold">Prénom du contact</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.PrenomContact}}</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="mb-4">
-        <p class="fw-semibold">Email du contact</p>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p>{{offre.MailContact}}</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="text-center mb-3">
-        <h4 class="text-danger fw-bold">
-            Places restantes : {{ places_restantes }} / 5
-        </h4>
-    </div>
-
-    {% if user.is_authenticated %}
-    <div class="text-center mb-5">
-        {% if offre.EtatOffre.NomEtatsOffres != "Cloturée" %}
-            <form action="/offres/{{offre.IdOffre}}/candidater" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary btn-lg">Candidater rapidement</button>
-            </form>
-        {% else %}
-            <button class="btn btn-secondary btn-lg" disabled>Offre Clôturée</button>
-        {% endif %}
-    </div>
-    {% endif %}
 
 </div>
 {% endblock %}

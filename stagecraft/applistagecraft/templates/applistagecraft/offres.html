@@ -8,100 +8,113 @@ Les Offres
     {% if user.is_superuser %}
     <div class="sidebar-margin">
     {% endif %}
-    <h2 class="text-center mt-5 fw-bold text-uppercase mb-5">Voici les {{offres|length}} offres que nous vous proposons</h2>
-    <form enctype="multipart/form-data" action="/offres/search/" method="post" class="m-5">
-        {% csrf_token %}
-        <div class="mb-3">
-            <input type="search" placeholder="Recherche dans le texte" id="search" name="search" />
+
+    {# Utilisation de container-fluid pour éviter le débordement avec la sidebar #}
+    <div class="container-fluid my-5">
+        
+        {# Wrapper pour centrer le contenu et éviter qu'il soit trop large #}
+        <div class="mx-auto" style="max-width: 1100px;">
+            
+            <h2 class="text-center fw-bold text-uppercase mb-4">
+                Découvrez nos <span class="text-primary">{{offres|length}}</span> offres de stage
+            </h2>
+
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-8 col-lg-6">
+                    <form action="/offres/search/" method="post" class="d-flex shadow-sm rounded-pill overflow-hidden bg-white border">
+                        {% csrf_token %}
+                        <input class="form-control border-0 ps-4 py-2" type="search" placeholder="Rechercher un stage (mots-clés, entreprise...)" id="search" name="search" aria-label="Search">
+                        <button class="btn btn-danger px-4 fw-bold" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
+                {% if user.is_staff %}
+                    <a href="/offres/" class="btn btn-dark btn-sm rounded-pill px-3">Toutes les offres</a>
+                    <a href="/offres/en-attente/" class="btn btn-outline-warning btn-sm rounded-pill px-3">En attente</a>
+                {% endif %}
+
+                {% if user.is_superuser %}
+                    <a href="/offres/validees/" class="btn btn-outline-success btn-sm rounded-pill px-3">Validées</a>
+                    <a href="/offres/refusees/" class="btn btn-outline-danger btn-sm rounded-pill px-3">Refusées</a>
+                    <a href="/offres/cloturees/" class="btn btn-outline-secondary btn-sm rounded-pill px-3">Clôturées</a>
+                {% endif %}
+            </div>
+
+            <div class="row g-4">
+                {% for offr in offres %}
+                    {% if user.is_staff or offr.EtatOffre.NomEtatsOffres == "Validée" %}
+                    <div class="col-12">
+                        {# J'ai supprimé 'border-0' et ajouté 'border border-secondary-subtle' pour un contour visible mais élégant #}
+                        <div class="card shadow-sm border border-secondary-subtle h-100 hover-shadow transition-card">
+                            <div class="card-body p-0">
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-md-9">
+                                        <a href="/offres/{{offr.IdOffre}}" class="text-decoration-none text-dark d-block p-4">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0 me-4">
+                                                    <img src="{{MEDIA_URL}}{{offr.ImageOffre}}" 
+                                                         alt="{{offr.IntituleOffre}}" 
+                                                         class="rounded-3 shadow-sm border"
+                                                         style="width: 80px; height: 80px; object-fit: contain; background: white;">
+                                                </div>
+                                                <div>
+                                                    <h5 class="fw-bold mb-1">{{offr.IntituleOffre}}</h5>
+                                                    <p class="text-muted mb-2 fw-medium">{{offr.OrganismeOffre}}</p>
+                                                    <div class="d-flex gap-3 text-secondary small">
+                                                        <span><i class="bi bi-geo-alt-fill me-1"></i>{{offr.VilleOffre}}</span>
+                                                        <span><i class="bi bi-clock-fill me-1"></i>{{offr.DureeOffre}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-3 bg-light p-3 border-start d-flex flex-column justify-content-center align-items-center h-100 rounded-end">
+                                        {% if user.is_staff %}
+                                            <form action="/offres/{{offr.IdOffre}}/modifierEtat" method="post" class="w-100">
+                                                {% csrf_token %}
+                                                <label class="small text-muted mb-1">Modifier l'état :</label>
+                                                <select name="etat" class="form-select form-select-sm mb-2" 
+                                                    onchange="
+                                                    const btn = this.form.querySelector('.btn-submit-state');
+                                                    const currentEtat = '{{ offr.EtatOffre.NomEtatsOffres }}';
+                                                    let user_is_superuser = '{{ user.is_superuser }}' === 'True';
+                                                    
+                                                    if (currentEtat === 'Cloturée' && !user_is_superuser) {
+                                                        btn.disabled = true;
+                                                    } else {
+                                                        btn.disabled = false;
+                                                    }
+                                                ">
+                                                    {% for e in etats %}
+                                                        <option value="{{e.IdEtatsOffres}}" 
+                                                            {% if offr.EtatOffre == e %}selected disabled{% endif %}
+                                                            {% if e.NomEtatsOffres == "Cloturée" and not user.is_superuser %}disabled{% endif %}>
+                                                            {{e.NomEtatsOffres}}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                                <input class="btn btn-warning btn-sm w-100 btn-submit-state" type="submit" value="Sauvegarder" disabled />
+                                            </form>
+                                        {% else %}
+                                            <a href="/offres/{{offr.IdOffre}}" class="btn btn-outline-primary rounded-pill">Voir les détails</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
-        <button type="submit" class="btn btn-danger mt-3">rechercher</button>
-    </form>
-    <div class="d-flex justify-content-center gap-2 mb-3">
-        {% if user.is_staff %}
-            <a href="/offres/" class="btn btn-dark">Toutes les offres</a>
-            <a href="/offres/en-attente/" class="btn btn-outline-warning">En attente de validation</a>
-        {% endif %}
-
-        {% if user.is_superuser %}
-            <a href="/offres/validees/" class="btn btn-outline-success">Validée</a>
-            <a href="/offres/refusees/" class="btn btn-outline-danger">Refusée</a>
-            <a href="/offres/cloturees/" class="btn btn-outline-secondary">Clôturée</a>
-        {% endif %}
     </div>
-    {% for offr in offres %}
-    {% if not user.is_staff and offr.EtatOffre.NomEtatsOffres == "Validée" %}
-    <div class="border rounded border-dark p-3 mx-auto mt-3" style="max-width: 900px;">
-        <div class="row align-items-center mt-3">
-
-            <a class="text-reset text-decoration-none col d-flex align-items-center"
-               href="/offres/{{offr.IdOffre}}">
-
-                <div class="col-auto d-flex align-items-center">
-                    <img class="mt-2 me-3" src="{{MEDIA_URL}}{{offr.ImageOffre}}" 
-                         width="100" alt="Image" title="{{offr.IntituleOffre}}">
-                    <p class="mb-0 me-4">{{offr.OrganismeOffre}}</p>
-                </div>
-
-                <div class="col text-center">
-                    <p class="mb-0">{{offr.IntituleOffre}}</p>
-                </div>
-            </a>
-        </div>
-    </div>
-    {% elif user.is_staff %}
-    <div class="border rounded border-dark p-3 mx-auto mt-3" style="max-width: 900px;">
-        <div class="row align-items-center mt-3">
-
-            <a class="text-reset text-decoration-none col d-flex align-items-center"
-               href="/offres/{{offr.IdOffre}}">
-
-                <div class="col-auto d-flex align-items-center">
-                    <img class="mt-2 me-3" src="{{MEDIA_URL}}{{offr.ImageOffre}}" 
-                         width="100" alt="Image" title="{{offr.IntituleOffre}}">
-                    <p class="mb-0 me-4">{{offr.OrganismeOffre}}</p>
-                </div>
-
-                <div class="col text-center">
-                    <p class="mb-0">{{offr.IntituleOffre}}</p>
-                </div>
-            </a>
-            <form action="/offres/{{offr.IdOffre}}/modifierEtat" class="col-auto d-flex me-3 justify-content-end" method="post">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <select name="etat" required id="id_etat"  onchange="
-                            const btn = this.form.querySelector('input[type=submit]');
-                            const currentEtat = '{{ offr.EtatOffre.NomEtatsOffres }}';
-                            let user_is_superuser = '{{ user.is_superuser }}';
-                            console.log(user_is_superuser)
-                            if (user_is_superuser === 'True') user_is_superuser = true
-                            else user_is_superuser = false
-
-                            if (currentEtat === 'Cloturée' && !user_is_superuser) {
-                                btn.disabled = true;
-                            } else {
-                                btn.disabled = false;
-                            }
-                        ">
-                        {% for e in etats %}
-                            {% if offr.EtatOffre == e %}
-                                <option selected disabled value="{{e.IdEtatsOffres}}">{{e.NomEtatsOffres}}</option>
-                            {% elif e.NomEtatsOffres == "Cloturée" and not user.is_superuser %}
-                                <option value="{{e.IdEtatsOffres}}" disabled>{{e.NomEtatsOffres}}</option>
-                            {% else %}
-                                <option value="{{e.IdEtatsOffres}}">{{e.NomEtatsOffres}}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                    <input class="btn btn-rounded btn-danger ms-3" type="submit" value="SAUVEGARDE" disabled />
-                </div>
-            </form>
-        </div>        
-    </div>
-    {% endif %}
-    {% endfor %}
 
     {% if user.is_superuser %}
     </div>
     {% endif %}
 {% endblock %}
-
