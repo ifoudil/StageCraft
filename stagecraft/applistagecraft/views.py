@@ -6,10 +6,10 @@ from applistagecraft.forms import OffreForm
 
 # Create your views here.
 
-def test(request):
+def homepage(request):
     return render(
         request,
-        'applistagecraft/test.html',
+        'applistagecraft/homepage.html',
     )
 
 def offres(request) :

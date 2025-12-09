@@ -2,7 +2,7 @@ from django.urls import path
 from applistagecraft import views
 
 urlpatterns = [
-    path('test/', views.test),
+    path('homepage/', views.homepage),
     path('offres/', views.offres),
     path('offres/add', views.formulaireCreationOffre),
     path('offres/creerOffre', views.creerOffre),
