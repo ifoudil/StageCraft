@@ -58,6 +58,34 @@ def propOffreEnCours(request):
         })
     else:
         return render(request, 'applicompte/login.html')
+def nbCandidatureParMois(request):
+    user = None
+    if request.user.is_superuser:
+        user = request.user
+        
+        # On recule de 365 jours
+        date_debut = timezone.now() - timedelta(days=365)
 
-def nbCandidatureParMois(request) :
-    return 
+        donnees = Candidature.objects.filter(
+            DateCandidature__gte=date_debut
+        ).annotate(
+            mois=TruncMonth('DateCandidature')
+        ).values('mois').annotate(
+            total=Count('IdCandidature')
+        ).order_by('mois')
+
+        labels = []
+        data = []
+
+        for entry in donnees:
+            if entry['mois']:
+                labels.append(entry['mois'].strftime('%B %Y'))
+                data.append(entry['total'])
+
+        return render(request, 'applistats/nbCandidaturesParMois.html', {
+            'labels': labels, 
+            'data': data,
+            'user': user
+        })
+    else:
+        return render(request, 'applicompte/login.html')

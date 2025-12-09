@@ -1,0 +1,48 @@
+{% extends 'applistagecraft/base.html' %}
+
+{% block title %}Statistiques - Candidatures{% endblock %}
+
+{% block main %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-uppercase fw-bold">Candidatures reçues (12 derniers mois)</h2>
+    
+    <div class="card shadow-sm p-4 bg-white rounded">
+        <canvas id="chartCandidatures"></canvas>
+    </div>
+</div>
+
+{{ labels|json_script:"cand-labels" }}
+{{ data|json_script:"cand-data" }}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const labels = JSON.parse(document.getElementById('cand-labels').textContent);
+    const data = JSON.parse(document.getElementById('cand-data').textContent);
+
+    const ctx = document.getElementById('chartCandidatures');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Nombre de candidatures',
+                data: data,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 1 }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
