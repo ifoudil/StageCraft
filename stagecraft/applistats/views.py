@@ -34,8 +34,30 @@ def nbOffreRecu(request):
     else:
         return render(request, 'applicompte/login.html')
 
-def propOffreEnCours(request) :
-    return
+def propOffreEnCours(request):
+    user = None
+    if request.user.is_superuser:
+        user = request.user
+
+        # On groupe par l'état (via la clé étrangère)
+        donnees = Offre.objects.values('EtatOffre__NomEtatsOffres').annotate(
+            total=Count('IdOffre')
+        ).order_by('total')
+
+        labels = []
+        data = []
+
+        for entry in donnees:
+            labels.append(entry['EtatOffre__NomEtatsOffres'])
+            data.append(entry['total'])
+
+        return render(request, 'applistats/propOffresEnCours.html', {
+            'labels': labels, 
+            'data': data,
+            'user': user
+        })
+    else:
+        return render(request, 'applicompte/login.html')
 
 def nbCandidatureParMois(request) :
     return 
