@@ -28,7 +28,7 @@
             {% include 'applicompte/dashboard.html' %}
             {% endif %}
         </aside>
-        <main class="Site-content d-flex">
+        <main class="Site-content d-flex {% if user.is_superuser %}sidebar-margin{% endif %}">
             <div class="flex-grow-1 p-3">
                 {% block main %}{% endblock %}
             </div>           
