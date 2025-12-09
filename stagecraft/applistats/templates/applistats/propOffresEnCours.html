@@ -14,9 +14,6 @@
 {{ labels|json_script:"etats-labels" }}
 {{ data|json_script:"etats-data" }}
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-
 <script>
     const labels = JSON.parse(document.getElementById('etats-labels').textContent);
     const data = JSON.parse(document.getElementById('etats-data').textContent);
