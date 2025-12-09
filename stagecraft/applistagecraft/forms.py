@@ -38,43 +38,60 @@ class OffreForm(forms.ModelForm) :
         }
 
         widgets = {
-            'OrganismeOffre': forms.TextInput(attrs={
-                'placeholder': "Nom de l'entreprise"
-            }),
             'IntituleOffre': forms.TextInput(attrs={
-                'placeholder': "Intitulé de l'offre de stage"
+                'class': 'form-control',
+                'placeholder': "Ex: Développeur Full Stack Python/Django"
             }),
-            'NomContact': forms.TextInput(attrs={
-                'placeholder': "Nom du contact entreprise"
-            }),
-            'PrenomContact': forms.TextInput(attrs={
-                'placeholder': "Prenom du contact entreprise"
-            }),
-            'MailContact': forms.TextInput(attrs={
-                'placeholder': "Mail du contact entreprise",
-                'type': "email"
-            }),
-            'DescriptionOrganisme': forms.TextInput(attrs={
-                'placeholder': "Description de l'entreprise"
-            }),
-            'DetailsOffre': forms.TextInput(attrs={
-                'placeholder': "Détails de l'offre de stage"
+            'DetailsOffre': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': "Détaillez les missions, les compétences requises, etc.",
+                'rows': 5
             }),
             'DureeOffre': forms.TextInput(attrs={
-                'placeholder': "Durée du stage"
+                'class': 'form-control',
+                'placeholder': "Ex: 6 mois"
             }),
-            'DateDebutStage': forms.TextInput(attrs={
-                'placeholder': "Date de début du stage",
-                'type': "date"
+            'DateDebutStage': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'OrganismeOffre': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': "Nom de votre société"
+            }),
+            'DescriptionOrganisme': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': "Présentez votre structure en quelques lignes...",
+                'rows': 3
+            }),
+            'ImageOffre': forms.FileInput(attrs={
+                'class': 'form-control'
             }),
             'AdresseOffre': forms.TextInput(attrs={
-                'placeholder': "Adresse du lieu de stage"
+                'class': 'form-control',
+                'placeholder': "Numéro et nom de rue"
             }),
             'VilleOffre': forms.TextInput(attrs={
-                'placeholder': "Ville du lieu de stage"
+                'class': 'form-control',
+                'placeholder': "Ville"
             }),
             'CodePostalOffre': forms.TextInput(attrs={
-                'placeholder': "Code postal du lieu de stage"
+                'class': 'form-control',
+                'placeholder': "Code Postal"
             }),
-            'RegionOffre': forms.Select(),
+            'RegionOffre': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'NomContact': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': "Nom"
+            }),
+            'PrenomContact': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': "Prénom"
+            }),
+            'MailContact': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': "exemple@entreprise.com"
+            }),
         }

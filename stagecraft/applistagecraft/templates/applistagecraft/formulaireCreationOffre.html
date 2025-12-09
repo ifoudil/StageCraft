@@ -1,19 +1,134 @@
 {% extends 'applistagecraft/base.html' %}
 
+{% block title %}Publier une offre{% endblock %}
+
 {% block main %}
-    <h2 class="text-center mt-4 fw-bold text-uppercase text-danger">Formulaire de Création d'offre de stage</h2>
-    <div class="container d-flex justify-content-center">
-        <form enctype="multipart/form-data" class="shadow-4-strong rounded-5 p-5 bg-white mt-5 mb-4 large-form w-90"  action="creerOffre" method="post">
-            {% csrf_token %}
-            {% for field in form %}
-            <div class="mb-4">
-                <div class="fieldWrapper row pb-4">
-                    {{ field.errors }}
-                    {{ field.label_tag }} {{ field }}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            
+            <div class="card shadow-sm border border-secondary-subtle rounded-3">
+                <div class="card-header bg-white py-4 text-center border-bottom">
+                    <h2 class="fw-bold text-uppercase h3 mb-0">Publier une offre de stage</h2>
+                    <p class="text-muted small mt-2 mb-0">Remplissez le formulaire ci-dessous pour proposer un stage.</p>
+                </div>
+                
+                <div class="card-body p-4 p-md-5">
+                    <form enctype="multipart/form-data" action="creerOffre" method="post">
+                        {% csrf_token %}
+                        
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <p class="mb-0">Veuillez corriger les erreurs ci-dessous.</p>
+                            </div>
+                        {% endif %}
+
+                        <h5 class="text-danger fw-bold mb-3 border-bottom pb-2"><i class="bi bi-briefcase me-2"></i>Détails du stage</h5>
+                        <div class="mb-4">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">{{ form.IntituleOffre.label }}</label>
+                                {{ form.IntituleOffre }}
+                                <div class="text-danger small">{{ form.IntituleOffre.errors }}</div>
+                            </div>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">{{ form.DureeOffre.label }}</label>
+                                    {{ form.DureeOffre }}
+                                    <div class="text-danger small">{{ form.DureeOffre.errors }}</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">{{ form.DateDebutStage.label }}</label>
+                                    {{ form.DateDebutStage }}
+                                    <div class="text-danger small">{{ form.DateDebutStage.errors }}</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">{{ form.DetailsOffre.label }}</label>
+                                {{ form.DetailsOffre }}
+                                <div class="text-danger small">{{ form.DetailsOffre.errors }}</div>
+                            </div>
+                        </div>
+
+                        <h5 class="text-danger fw-bold mb-3 border-bottom pb-2 mt-5"><i class="bi bi-building me-2"></i>L'Entreprise</h5>
+                        <div class="mb-4">
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">{{ form.OrganismeOffre.label }}</label>
+                                    {{ form.OrganismeOffre }}
+                                    <div class="text-danger small">{{ form.OrganismeOffre.errors }}</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">{{ form.ImageOffre.label }}</label>
+                                    {{ form.ImageOffre }}
+                                    <div class="text-danger small">{{ form.ImageOffre.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">{{ form.DescriptionOrganisme.label }}</label>
+                                {{ form.DescriptionOrganisme }}
+                                <div class="text-danger small">{{ form.DescriptionOrganisme.errors }}</div>
+                            </div>
+                        </div>
+
+                        <h5 class="text-danger fw-bold mb-3 border-bottom pb-2 mt-5"><i class="bi bi-geo-alt me-2"></i>Localisation</h5>
+                        <div class="mb-4">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">{{ form.AdresseOffre.label }}</label>
+                                {{ form.AdresseOffre }}
+                                <div class="text-danger small">{{ form.AdresseOffre.errors }}</div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">{{ form.CodePostalOffre.label }}</label>
+                                    {{ form.CodePostalOffre }}
+                                    <div class="text-danger small">{{ form.CodePostalOffre.errors }}</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">{{ form.VilleOffre.label }}</label>
+                                    {{ form.VilleOffre }}
+                                    <div class="text-danger small">{{ form.VilleOffre.errors }}</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">{{ form.RegionOffre.label }}</label>
+                                    {{ form.RegionOffre }}
+                                    <div class="text-danger small">{{ form.RegionOffre.errors }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="text-danger fw-bold mb-3 border-bottom pb-2 mt-5"><i class="bi bi-person-lines-fill me-2"></i>Contact Recruteur</h5>
+                        <div class="mb-4">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">{{ form.PrenomContact.label }}</label>
+                                    {{ form.PrenomContact }}
+                                    <div class="text-danger small">{{ form.PrenomContact.errors }}</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">{{ form.NomContact.label }}</label>
+                                    {{ form.NomContact }}
+                                    <div class="text-danger small">{{ form.NomContact.errors }}</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">{{ form.MailContact.label }}</label>
+                                    {{ form.MailContact }}
+                                    <div class="text-danger small">{{ form.MailContact.errors }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-5">
+                            <button type="submit" class="btn btn-danger btn-lg rounded-pill shadow-sm py-3 fw-bold">
+                                <i class="bi bi-check-circle-fill me-2"></i>Publier l'offre
+                            </button>
+                        </div>
+
+                    </form>
                 </div>
             </div>
-            {% endfor %}
-            <button type="submit" class="btn btn-danger btn-lg w-100 mt-3">Créer</button>
-        </form>
+        </div>
     </div>
+</div>
 {% endblock %}
