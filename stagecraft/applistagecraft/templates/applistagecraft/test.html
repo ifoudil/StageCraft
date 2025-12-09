@@ -1,9 +1,108 @@
 {% extends 'applistagecraft/base.html' %}
+{% load static %}
 
 {% block title %}
-Test
+Accueil - StageCraft
 {% endblock %}
 
 {% block main %}
-    <h2 class="text-center fs-2 fw-bold mt-2">Page de test</h2>
+{# Style spécifique pour corriger le contraste au survol du bouton étudiant #}
+<style>
+    .btn-hover-black:hover {
+        color: #000 !important;
+    }
+</style>
+
+<div class="container py-4">
+
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm border border-secondary-subtle">
+      <div class="container-fluid py-3">
+        <h1 class="display-5 fw-bold text-dark">Bienvenue sur <span class="text-danger">StageCraft</span></h1>
+        <p class="col-md-8 fs-4 text-muted mt-3">
+            La plateforme de référence pour connecter les talents de demain aux entreprises d'aujourd'hui. 
+            Trouvez votre stage idéal ou recrutez votre futur collaborateur en quelques clics.
+        </p>
+        <div class="d-flex gap-3 mt-4 flex-wrap">
+            <a href="/offres" class="btn btn-danger btn-lg rounded-pill px-4 shadow-sm">
+                <i class="bi bi-search me-2"></i>Voir les offres
+            </a>
+            {% if not user.is_authenticated %}
+            <a href="/login" class="btn btn-outline-dark btn-lg rounded-pill px-4">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
+            </a>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="row align-items-md-stretch mb-5">
+      <div class="col-md-6 mb-3 mb-md-0">
+        <div class="h-100 p-5 text-white bg-dark rounded-3 shadow-sm position-relative overflow-hidden">
+          <div class="position-relative z-index-1">
+              <h2 class="fw-bold"><i class="bi bi-mortarboard-fill me-2"></i>Étudiants</h2>
+              <p class="fs-5 mt-3">
+                  Accédez à des centaines d'offres de stage vérifiées. Postulez facilement, suivez vos candidatures en temps réel et décrochez l'opportunité qui lancera votre carrière.
+              </p>
+              {# Ajout de la classe btn-hover-black ici #}
+              <a href="/offres" class="btn btn-outline-light mt-3 rounded-pill px-4 btn-hover-black">Chercher un stage</a>
+          </div>
+        </div>
+      </div>
+
+    {% if not user.is_authenticated %}
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-white border border-secondary-subtle rounded-3 shadow-sm">
+          <h2 class="fw-bold text-dark"><i class="bi bi-briefcase-fill me-2"></i>Entreprises</h2>
+          <p class="fs-5 mt-3 text-muted">
+              Diffusez vos offres auprès d'étudiants qualifiés. Gérez les candidatures, validez les profils et trouvez rapidement le stagiaire idéal pour renforcer vos équipes.
+          </p>
+          <a href="/offres/add" class="btn btn-outline-dark mt-3 rounded-pill px-4">Poster une offre</a>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <hr class="my-5 text-muted">
+
+    <div class="row g-4 py-2 row-cols-1 row-cols-lg-3">
+      
+      <div class="col">
+        <div class="d-flex align-items-center mb-3">
+            <div class="icon-square bg-success bg-gradient text-white flex-shrink-0 me-3 rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; height: 50px;">
+                <i class="bi bi-check-lg fs-4"></i>
+            </div>
+            <h3 class="h4 mb-0 fw-bold">Offres Vérifiées</h3>
+        </div>
+        <p class="text-secondary">
+            Chaque offre publiée sur StageCraft est examinée par notre équipe administrative pour garantir sa qualité, sa pertinence et sa conformité.
+        </p>
+      </div>
+
+      <div class="col">
+        <div class="d-flex align-items-center mb-3">
+            <div class="icon-square bg-warning bg-gradient text-dark flex-shrink-0 me-3 rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; height: 50px;">
+                <i class="bi bi-lightning-fill fs-4 text-white"></i>
+            </div>
+            <h3 class="h4 mb-0 fw-bold">Candidature Éclair</h3>
+        </div>
+        <p class="text-secondary">
+            Ne perdez plus de temps. Une fois votre compte créé, postulez aux offres qui vous correspondent en un seul clic grâce à votre profil unifié.
+        </p>
+      </div>
+
+      <div class="col">
+        <div class="d-flex align-items-center mb-3">
+            <div class="icon-square bg-info bg-gradient text-white flex-shrink-0 me-3 rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; height: 50px;">
+                <i class="bi bi-bar-chart-fill fs-4"></i>
+            </div>
+            <h3 class="h4 mb-0 fw-bold">Suivi Intuitif</h3>
+        </div>
+        <p class="text-secondary">
+            Restez informé des offres disponibles et de vos candidatures directement depuis votre tableau de bord personnel.
+        </p>
+      </div>
+
+    </div>
+
+</div>
 {% endblock %}
