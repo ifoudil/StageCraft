@@ -1,3 +1,41 @@
 from django.shortcuts import render
+from django.db.models import Count
+from django.db.models.functions import TruncMonth
+from django.utils import timezone
+from datetime import timedelta
+from applistagecraft.models import Offre, Candidature
 
 # Create your views here.
+def nbOffreRecu(request):
+    user = None
+    if request.user.is_superuser:
+        user = request.user
+        
+        # On groupe par mois
+        donnees = Offre.objects.annotate(
+            mois=TruncMonth('DateOffre')
+        ).values('mois').annotate(
+            total=Count('IdOffre')
+        ).order_by('mois')
+
+        labels = []
+        data = []
+
+        for entry in donnees:
+            if entry['mois']:
+                labels.append(entry['mois'].strftime('%B %Y'))
+                data.append(entry['total'])
+
+        return render(request, 'applistats/nbOffresRecu.html', {
+            'labels': labels, 
+            'data': data,
+            'user': user
+        })
+    else:
+        return render(request, 'applicompte/login.html')
+
+def propOffreEnCours(request) :
+    return
+
+def nbCandidatureParMois(request) :
+    return 
