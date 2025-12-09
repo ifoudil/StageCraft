@@ -10,7 +10,7 @@ def connexion(request) :
         user = User.objects.get(id=request.user.id)
         return render(
             request,
-            'applistagecraft/test.html',
+            'applistagecraft/homepage.html',
             {"user": user}
         )
     
@@ -21,7 +21,7 @@ def connexion(request) :
         login(request, user)
         return render(
             request,
-            'applistagecraft/test.html',
+            'applistagecraft/homepage.html',
             {"user": user}
         )
 
