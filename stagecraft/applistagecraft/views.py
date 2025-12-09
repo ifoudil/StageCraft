@@ -15,11 +15,28 @@ def test(request):
 def offres(request) :
     user = None
     
-    if request.user.is_authenticated:
+    if request.user.is_staff:
         user = request.user
 
         # Récupération des offres de la base de données
         lesOffres = Offre.objects.all()
+        lesEtats = EtatsOffres.objects.all()
+
+        # retourne emplacement du template offres.html et calcul des offres sous forme de dictionnaire python
+        return render(
+            request,
+            'applistagecraft/offres.html',
+            {
+                'offres': lesOffres,
+                'etats': lesEtats,
+                'user': user
+            }
+        )
+    elif request.user.is_authenticated:
+        user = request.user
+        
+        # Récupération des offres de la base de données
+        lesOffres = Offre.objects.filter(EtatOffre = 2)
         lesEtats = EtatsOffres.objects.all()
 
         # retourne emplacement du template offres.html et calcul des offres sous forme de dictionnaire python
