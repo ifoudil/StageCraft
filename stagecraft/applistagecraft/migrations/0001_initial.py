@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('IntituleOffre', models.CharField(max_length=50)),
                 ('DateOffre', models.DateTimeField(auto_now_add=True)),
                 ('DetailsOffre', models.CharField(max_length=10000)),
-                ('EtatOffre', models.CharField(choices=[('attente', 'En attente de validation'), ('validee', 'Validée'), ('Refusee', 'Refusée'), ('Cloturee', 'Cloturée')], default='attente', max_length=20)),
+                ('EtatOffre', models.CharField(choices=[('attente', 'En attente de validation'), ('validee', 'Validée'), ('Refusee', 'Refusée'), ('Cloturée')], default='attente', max_length=20)),
                 ('DureeOffre', models.CharField(max_length=10)),
                 ('DateDebutOffre', models.DateField()),
                 ('AdresseOffre', models.CharField(max_length=500)),

@@ -19,7 +19,7 @@
                         <p class="mb-1 fw-semibold">{{ cand.Offre.OrganismeOffre }}</p>
                         <small><i class="bi bi-geo-alt-fill"></i> {{ cand.Offre.VilleOffre }}</small>
                     </div>
-                    {% if cand.Offre.EtatOffre.NomEtatsOffres == "Cloturee" %}
+                    {% if cand.Offre.EtatOffre.NomEtatsOffres == "Cloturée" %}
                         <span class="badge bg-secondary">Offre Clôturée</span>
                     {% else %}
                         <span class="badge bg-success">Offre Active</span>

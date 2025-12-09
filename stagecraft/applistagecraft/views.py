@@ -401,7 +401,7 @@ def offresCloturees(request):
     user = None
 
     if request.user.is_superuser :
-        lesOffres = Offre.objects.filter(EtatOffre__NomEtatsOffres="Cloturee")
+        lesOffres = Offre.objects.filter(EtatOffre__NomEtatsOffres="Cloturée")
         lesEtats = EtatsOffres.objects.all()
         user = request.user
 

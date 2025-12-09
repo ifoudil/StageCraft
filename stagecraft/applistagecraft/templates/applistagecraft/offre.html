@@ -135,7 +135,7 @@ Les détails de l'offre
 
     {% if user.is_authenticated %}
     <div class="text-center mb-5">
-        {% if offre.EtatOffre.NomEtatsOffres != "Cloturee" %}
+        {% if offre.EtatOffre.NomEtatsOffres != "Cloturée" %}
             <form action="/offres/{{offre.IdOffre}}/candidater" method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary btn-lg">Candidater rapidement</button>
