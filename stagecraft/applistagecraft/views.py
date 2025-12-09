@@ -205,7 +205,11 @@ def searchOffres(request) :
         user = request.user
 
         info = request.POST.get('search')
-        lesOffres = Offre.objects.filter(OrganismeOffre__contains=info) | Offre.objects.filter(IntituleOffre__contains=info)
+
+        if request.user.is_staff:
+            lesOffres = Offre.objects.filter(OrganismeOffre__contains=info) | Offre.objects.filter(IntituleOffre__contains=info)
+        else:
+            lesOffres = (Offre.objects.filter(OrganismeOffre__contains=info) | Offre.objects.filter(IntituleOffre__contains=info)).filter(EtatOffre = 2)
 
         lesEtats = EtatsOffres.objects.all()
 
