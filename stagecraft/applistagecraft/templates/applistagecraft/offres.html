@@ -5,6 +5,9 @@ Les Offres
 {% endblock %}
 
 {% block main %}
+    {% if user.is_superuser %}
+    <div class="sidebar-margin">
+    {% endif %}
     <h2 class="text-center mt-5 fw-bold text-uppercase mb-5">Voici les {{offres|length}} offres que nous vous proposons</h2>
     <form enctype="multipart/form-data" action="/offres/search/" method="post" class="m-5">
         {% csrf_token %}
@@ -94,5 +97,9 @@ Les Offres
     </div>
     {% endif %}
     {% endfor %}
+
+    {% if user.is_superuser %}
+    </div>
+    {% endif %}
 {% endblock %}
 

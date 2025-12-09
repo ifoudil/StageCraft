@@ -1,0 +1,45 @@
+{% load static %}
+<div class="d-flex flex-column align-items-center p-3 bg-dark text-white dashboard fs-6 position-fixed">
+    <ul class="list-unstyled ps-0">
+      <li class="mb-1">
+        <h4 class="fw-bold text-info">Administration</h4>
+      </li>
+      <li class="mb-1">
+        <button class="fs-6 shadow-none btn btn-toggle d-flex justify-content-between align-items-center rounded collapsed text-white" data-bs-toggle="collapse" data-bs-target="#offres-collapse" aria-expanded="true">
+            <i class="bi bi-briefcase me-2"></i>
+            OFFRES
+            <i class="ms-2 bi bi-chevron-right toggle-icon"></i>
+        </button>
+        <div class="collapse show" id="offres-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+            <li><a href="/offres/" class="shadow-none ms-3 link-light rounded nav-item btn">Toutes les offres</a></li>
+            <li><a href="/offres/en-attente/" class="shadow-none ms-3 link-light rounded nav-item btn">En attente de validation</a></li>
+            <li><a href="/offres/validees/" class="shadow-none ms-3 link-light rounded nav-item btn">Validée</a></li>
+            <li><a href="/offres/refusees/" class="shadow-none ms-3 link-light rounded nav-item btn">Refusée</a></li>
+            <li><a href="/offres/cloturees/" class="shadow-none ms-3 link-light rounded nav-item btn">Clôturée</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <h4 class="fw-bold text-info mt-2 mb-3">Statistiques</h4>
+      </li>
+      <li class="mb-1 nav-item">
+        <a href="#" class="nav-link link-light">
+          <i class="me-2 bi bi-bar-chart-line"></i>
+          OFFRES RECUES
+        </a>
+      </li>
+      <li class="mb-1 nav-item">
+        <a href="#" class="nav-link link-light">
+          <i class="me-2 bi bi-pie-chart"></i>
+          OFFRES EN COURS
+        </a>
+      </li>
+      <li class="mb-1 nav-item">
+        <a href="#" class="nav-link link-light">
+          <i class="me-2 bi bi-graph-up-arrow"></i>
+          CANDIDATURES
+        </a>
+      </li>
+    </ul>
+  </div>

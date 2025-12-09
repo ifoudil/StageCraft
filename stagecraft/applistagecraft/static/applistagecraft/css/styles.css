@@ -72,3 +72,30 @@ h1 {
         font-size: 1.8rem;
     }
 }
+
+/* --------------------------- Dashboard ----------------------------------- */
+.dashboard {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-width: 15%;
+    margin-top:80px;
+}
+ 
+.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.btn-toggle[aria-expanded="true"] .toggle-icon {
+    transform: rotate(90deg);
+}
+
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }
+
+ .sidebar-margin {
+    margin-left: 15% !important;
+    margin-top: 6% !important;
+}
