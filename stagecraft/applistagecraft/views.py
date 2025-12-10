@@ -209,8 +209,8 @@ def searchOffres(request) :
         if request.user.is_staff:
             lesOffres = Offre.objects.filter(OrganismeOffre__contains=info) | Offre.objects.filter(IntituleOffre__contains=info) | Offre.objects.filter(DureeOffre__contains=info) | Offre.objects.filter(VilleOffre__contains=info)
         else:
-            lesOffres = (Offre.objects.filter(OrganismeOffre__contains=info) | Offre.objects.filter(IntituleOffre__contains=info)).filter(EtatOffre = 2)
-
+            lesOffres = (Offre.objects.filter(OrganismeOffre__contains=info) | Offre.objects.filter(IntituleOffre__contains=info) | Offre.objects.filter(DureeOffre__contains=info) | Offre.objects.filter(VilleOffre__contains=info)).filter(EtatOffre = 2)
+            
         lesEtats = EtatsOffres.objects.all()
 
         return render(
