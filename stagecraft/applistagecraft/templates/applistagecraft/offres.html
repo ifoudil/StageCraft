@@ -13,7 +13,7 @@ Les Offres
     <div class="container-fluid my-5">
         
         {# Wrapper pour centrer le contenu et éviter qu'il soit trop large #}
-        <div class="mx-auto" style="max-width: 1100px;">
+        <div class="mx-auto m-w-1100">
             
             <h2 class="text-center fw-bold text-uppercase mb-4">
                 Découvrez nos <span class="text-primary">{{offres|length}}</span> offres de stage
@@ -58,8 +58,7 @@ Les Offres
                                                 <div class="flex-shrink-0 me-4">
                                                     <img src="{{MEDIA_URL}}{{offr.ImageOffre}}" 
                                                          alt="{{offr.IntituleOffre}}" 
-                                                         class="rounded-3 shadow-sm border"
-                                                         style="width: 80px; height: 80px; object-fit: contain; background: white;">
+                                                         class="rounded-3 shadow-sm border bloc-80 of-bgw">
                                                 </div>
                                                 <div>
                                                     <h5 class="fw-bold mb-1">{{offr.IntituleOffre}}</h5>
